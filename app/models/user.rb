@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  acts_as_paranoid
+  audited
   mount_uploader :avatar, AvatarUploader
 
   has_many :microposts
