@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
+  require 'rest-client'
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
   def index
     # @users = User.all.page(params[:page]).per(5)
     @users = User.all.paginate(page: params[:page], per_page: 5)
-    render json: @users
+    response = RestClient.get 'https://glacial-taiga-14111.herokuapp.com/users'
+    @response = response.body
   end
 
   # GET /users/1 or /users/1.json
